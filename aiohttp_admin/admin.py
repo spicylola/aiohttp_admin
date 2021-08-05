@@ -107,6 +107,7 @@ class AdminOnRestHandler:
         Return index page with initial state for admin
         """
         context = {"initial_state": self.schema.to_json()}
+        print(context)
 
         return render_template(
             self.template,

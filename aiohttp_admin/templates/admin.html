@@ -9,7 +9,18 @@
     </head>
     <body ng-app="aiohttp_admin">
         <script type="text/javascript">
-        var data = window.localStorage.getItem('aiohttp_admin_token');
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const okta_token = urlParams.get('TOKEN');
+        console.log("Im inside token code");
+         urlParams.delete('TOKEN');
+        if (okta_token){
+         window.localStorage.setItem('aiohttp_admin_token', okta_token);
+
+        }
+        console.log(" window token is");
+         var data = window.localStorage.getItem('aiohttp_admin_token');
+         console.log(data);
         if (!data) {
             window.location.href = "{{ url('admin.login') }}";
         }
