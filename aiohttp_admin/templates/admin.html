@@ -9,14 +9,23 @@
     </head>
     <body ng-app="aiohttp_admin">
         <script type="text/javascript">
+       const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const okta_token = urlParams.get('TOKEN');
+        urlParams.delete('TOKEN');
+        if (okta_token){
+         window.localStorage.setItem('aiohttp_admin_token', okta_token);
+
+        }
         var data = window.localStorage.getItem('aiohttp_admin_token');
-        if (!data) {
+         if (!data) {
             window.location.href = "{{ url('admin.login') }}";
         }
         function logout() {
             window.localStorage.removeItem('aiohttp_admin_token');
             window.location.href = "{{ url('admin.login') }}";
         }
+
         </script>
         {% block body %}
         <div ui-view="ng-admin"></div>
